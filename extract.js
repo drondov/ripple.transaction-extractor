@@ -3,10 +3,21 @@ const path = require('path');
 const jayson = require('jayson/promise');
 const config = require('./config');
 
-const client = jayson.client.http({
-    port: config.rpc.port,
-    host: config.rpc.host,
-});
+
+function getClient() {
+
+    const headers = {};
+    if (config.rpc.user) {
+        headers.Authorization = new Buffer(`${config.rpc.user}:${config.rpc.password}`).toString('base64');
+    }
+    const client = jayson.client.http({
+        port: config.rpc.port,
+        host: config.rpc.host,
+        headers,
+    });
+    return client;
+}
+const client = getClient();
 
 async function getAccountTransactions(marker) {
     const response = await client.request('account_tx', [{
