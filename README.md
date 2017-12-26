@@ -16,11 +16,13 @@
 ```
 
 #### Getting started
-
-##### Download all transactions
 ```
 npm install
 # For data saving from daemon
 # create config.json
+```
+
+##### Download all transactions
+```
 node extract
 ```
