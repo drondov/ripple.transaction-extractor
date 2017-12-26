@@ -8,7 +8,8 @@ function getClient() {
 
     const headers = {};
     if (config.rpc.user) {
-        headers.Authorization = new Buffer(`${config.rpc.user}:${config.rpc.password}`).toString('base64');
+        const credentials = new Buffer(`${config.rpc.user}:${config.rpc.password}`).toString('base64');
+        headers.Authorization = `Basic ${credentials}`;
     }
     const client = jayson.client.http({
         port: config.rpc.port,
